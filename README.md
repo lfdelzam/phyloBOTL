@@ -31,6 +31,7 @@ EGGNOG (emapper and database), genomad (genomad and database), R_env and snakema
       bash install_key_envs.sh <directory_DB_path> <cpus>
 
 <directory_DB_path> a directory where you want to download the databases. 
+<cpus> number of cpus to download R packages when creating the R_env
 
 Optional
 
@@ -102,9 +103,9 @@ Modify config file:
                             "locus_size_window": 40000, - bps, window used when looking for enriched orthologs locilised in the region
                             "max_n_genomes_per_fig": 22 - 22 representative genomes will be included in the .pdf figure
                           },
-      "path_to_eggnog_db":"CONDA_ENVS_PATH/eggnog_mapper_env/data", - abs path to eggnog database directory. 
+      "path_to_eggnog_db":"directory_DB_path/eggnog_mapper_env/data", - abs path to eggnog database directory. 
       "genomad":{
-                  "path_to_genomad_db": "CONDA_ENVS_PATH/genomad_env/data/genomad_db", - abs path to genomad database directory
+                  "path_to_genomad_db": "directory_DB_path/genomad_env/data/genomad_db", - abs path to genomad database directory
                   "Genomad_score_cut_off": 0.8, - Minimum score to classify a contig as plasmid (or Virus)
                   "params_genomad": "--cleanup --conservative --enable-score-calibration", - genomad parameters. The flag --enable-score-calibration will work if there are more than 1000 sequences in the fasta file (in a genome file) 
                 },
