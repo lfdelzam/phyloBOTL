@@ -28,9 +28,11 @@ conda deactivate
 #EggNOG environment
 conda create -n eggnog_mapper_env -c bioconda -c conda-forge eggnog-mapper=2.0.1 -y
 conda activate eggnog_mapper_env
-export CONDA_ENVS_PATH=$1
 
-export PATH=$CONDA_ENVS_PATH/eggnog_mapper_env:$CONDA_ENVS_PATH/eggnog_mapper_env/bin:"$PATH"
+CONDA_ENVS_PATH=$1
+#export CONDA_ENVS_PATH=$1
+
+#export PATH=$CONDA_ENVS_PATH/eggnog_mapper_env:$CONDA_ENVS_PATH/eggnog_mapper_env/bin:"$PATH"
 mkdir -p $CONDA_ENVS_PATH/eggnog_mapper_env/data
 #export EGGNOG_DATA_DIR=$CONDA_ENVS_PATH/eggnog_mapper_env/data
 
