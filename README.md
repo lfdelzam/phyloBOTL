@@ -4,20 +4,21 @@ Requirements
 
 
 2. EGGNOG - Follow instructions on https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-v2112
-  Example of command-lines to install emapper.py in the file/script install_key_envs.sh
 
-3. Conda R_env:
+   Example of command-lines to install emapper.py in the file/script install_key_envs.sh
 
-    conda env create -f conda_env/R_env.yaml
-    conda activate R_env
-    Rscript --vanilla Install_Rpackages.R <numberofcpus>
+4. Conda R_env:
+
+      conda env create -f conda_env/R_env.yaml -y
+      conda activate R_env
+      Rscript --vanilla Install_Rpackages.R <numberofcpus>
 
 
-4. Snakemake
+5. Snakemake
 
-    conda create -n phylobotl_env -c bioconda snakemake=7.25.0 Python=3.11.4
-    conda activate phylobotl_env
-    conda config --set channel_priority strict
+      conda create -n phylobotl_env -c bioconda snakemake=7.25.0 Python=3.11.4
+      conda activate phylobotl_env
+      conda config --set channel_priority strict
 
 
 Optional
