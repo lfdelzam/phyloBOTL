@@ -1,4 +1,4 @@
-Requirements
+# Requirements
 
 1. miniconda - Follow instruction on https://docs.conda.io/projects/miniconda/en/latest/
    
@@ -32,6 +32,7 @@ EGGNOG (emapper and database), genomad (genomad and database), R_env and snakema
 
 
 Optional
+
 A. gtdbtk - source: https://ecogenomics.github.io/GTDBTk/installing/index.html#installing 
           - conda: https://ecogenomics.github.io/GTDBTk/installing/bioconda.html
 
@@ -41,11 +42,12 @@ A. gtdbtk - source: https://ecogenomics.github.io/GTDBTk/installing/index.html#i
     # Set the environment variable to the directory containing the GTDB-Tk reference data
     conda env config vars set GTDBTK_DATA_PATH="/path/to/unarchived/gtdbtk/data"
 
+
 B. kSNP4  - source: https://sourceforge.net/projects/ksnp/files/latest/download
           - manual: https://sourceforge.net/projects/ksnp/files/kSNP4.1%20User%20Guide.pdf/download
 
 
-Usage
+# Usage
 
 Modify config file:
 
