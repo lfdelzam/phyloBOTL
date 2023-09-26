@@ -129,7 +129,7 @@ Modify config file:
                   "Genomad_score_cut_off": 0.8, - Minimum score to classify a contig as plasmid (or Virus)
                   "params_genomad": "--cleanup --conservative --enable-score-calibration", - genomad parameters. The flag --enable-score-calibration will work if there are more than 1000 sequences in the fasta file (in a genome file) 
                 },
-      "output_dir": "Results_with_IQTREE_rooted"
+      "output_dir": "Results_with_IQTREE_rooted" - Output directory name
 
 
       
@@ -140,3 +140,13 @@ Run:
 
       conda activate phylobotl_env
       snakemake -s phylobotl.smk --use-conda --conda-frontend conda --cores <numberofcpus>
+
+# Output files
+
+In <output_dir>:
+Annotation
+   Enriched
+   Depleted
+   Loci
+
+etc ...   
