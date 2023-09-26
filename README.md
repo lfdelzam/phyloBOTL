@@ -1,31 +1,49 @@
-# Requirements
+# Requirements and installation
 
 1. miniconda - Follow instruction on https://docs.conda.io/projects/miniconda/en/latest/
+
+   make sure you have the conda version 23.7.3
+
+         conda activate base
+         conda install conda=23.7.3 -y
    
-2. clone the repository:
+3. clone the repository:
 
          git clone https://github.com/lfdelzam/phyloBOTL
 
-3. Conda R_env:
+## Installation option 1 - step by step, in case you already have some programs installed or databases downloaded
+Make sure you are using the same version as indicated hereafter: 
+
+Conda R_env:
 
          cd phyloBOTL
          conda env create -f conda_env/R_env.yaml -y
          conda activate R_env
          Rscript --vanilla support/Install_Rpackages.R <numberofcpus>
 
-
-5. Snakemake:
+Snakemake (https://snakemake.readthedocs.io/en/stable/getting_started/installation.html):
 
          conda create -n phylobotl_env -c bioconda snakemake=7.25.0 Python=3.11.4 -y
          conda activate phylobotl_env
          conda config --set channel_priority strict
 
- 6. Genomad and genomad_db - Follow instructions on https://portal.nersc.gov/genomad/index.html
+Genomad and genomad_db (https://portal.nersc.gov/genomad/index.html)
+
+          conda create -n genomad_env -c conda-forge -c bioconda genomad=1.6.1 -y
+          conda activate genomad_env
+          mkdir -p <directory_DB_path>/genomad_env/data
+          genomad download-database <directory_DB_path>/genomad_env/data
+          conda deactivate
     
- 7. EGGNOG: emapper.py and EGGNOG database - Follow instructions on https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-v2112
+EGGNOG: emapper.py and EGGNOG database (https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-v2112)
 
+          conda create -n eggnog_mapper_env -c bioconda -c conda-forge eggnog-mapper=2.0.1 -y
+          conda activate eggnog_mapper_env
+          mkdir -p <directory_DB_path>/eggnog_mapper_env/data
+          download_eggnog_data.py --data_dir <directory_DB_path>/eggnog_mapper_env/data -y
+          conda deactivate
 
-EGGNOG (emapper and database), genomad (genomad and database), R_env and snakemake can be installed using the script install_key_envs.sh: 
+## Installation option 2 - all in one go, in case you want to install/download all the required programs and databases from scratch. 
 
       cd phyloBOTL
       bash install_key_envs.sh <directory_DB_path> <cpus>
@@ -33,7 +51,9 @@ EGGNOG (emapper and database), genomad (genomad and database), R_env and snakema
 <directory_DB_path> a directory where you want to download the databases. 
 <cpus> number of cpus to download R packages when creating the R_env
 
-Optional
+## Optional
+
+if you want to use gtdb or kSNP4 to build the phylogenetic tree
 
 A. gtdbtk - source: https://ecogenomics.github.io/GTDBTk/installing/index.html#installing 
           - conda: https://ecogenomics.github.io/GTDBTk/installing/bioconda.html
