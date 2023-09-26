@@ -1,0 +1,9 @@
+name: fastTree2_env
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - fasttree=2.1.11

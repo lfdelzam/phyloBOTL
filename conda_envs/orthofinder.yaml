@@ -1,0 +1,9 @@
+name: orthofinder_env
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - orthofinder=2.5.5

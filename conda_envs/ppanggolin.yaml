@@ -1,0 +1,9 @@
+name: ppanggolin_env
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - ppanggolin=1.2.105

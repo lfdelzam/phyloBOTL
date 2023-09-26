@@ -1,0 +1,12 @@
+name: R_env
+
+channels:
+  - conda-forge
+  - anaconda
+
+dependencies:
+  - r-base=4.2.0
+  - cmake
+  - r-remotes
+  - libgit2
+  - pkg-config

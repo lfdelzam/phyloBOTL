@@ -1,0 +1,57 @@
+{
+"workdir":"/abs/path/to/phyloBOTL",
+"threads": 20,
+"input": {
+          "File_list":"GENOME_LIST",
+          "group_1_label": "C",
+          "group_1_name": "Clinical",
+          "group_2_label": "E",
+          "group_2_name": "Environmental",
+          "Special_group_name": "Baltic Sea"
+        },
+"tree_file": "Tree_rooted_boot.treefile",
+"tree_using": "iqtree",
+"iqtree": {
+          "iqtree_params":"-m GTR+I+G -B 1000 -bnni",
+          "iqtree_rooted": "TRUE"
+          },
+"FastTree_params":"-gtr -nt -gamma",
+"GTDB": {
+        "gtdb_params": "--bacteria",
+        "taxa_filter":"p__Proteobacteria",
+        "outgroup_taxon":"p__Firmicutes"
+        },
+"KSNP": {
+        "kSNP4_param_phylo_method":"ML",
+        "kSNP4_param_genome_fraction": "core",
+        "Path_to_kSNP4pkg": "/usr/local/kSNP4pkg"
+        },
+"Prokka_params": "--rawproduct --quiet",
+"Proteome_dir": "proteome",
+"orthology":
+          {
+          "orthofinder_parameters": "-f proteome -a 4 -S diamond -og",
+          "ortholog_count_table": "Orthogroups.GeneCount.tsv",
+          "ortholog_table": "Orthogroups.tsv",
+          "path_to_orthologs_sequences": "Orthologues/Results_dir/Orthogroup_Sequences"
+          },
+"PHYLOGLM": {
+            "phyloglm_Bootnumber":0,
+            "p_adj_value_cutoff":0.05,
+            "orthologue_ratio_in_genome_dataset":0.95,
+            "phyloglm_btol_number":10,
+            "phyloglm_outfiles_prefix":"Vv"
+            },
+"synteny_visualization": {
+                      "present_in_at_least_n_genomes": 10,
+                      "locus_size_window": 40000,
+                      "max_n_genomes_per_fig": 22
+                    },
+"path_to_eggnog_db":"CONDA_ENVS_PATH/eggnog_mapper_env/data",
+"genomad":{
+            "path_to_genomad_db": "CONDA_ENVS_PATH/genomad_env/data/genomad_db",
+            "Genomad_score_cut_off": 0.8,
+            "params_genomad": "--cleanup --conservative --enable-score-calibration",
+          },
+"output_dir": "Results_with_IQTREE_rooted"
+}
