@@ -8,21 +8,21 @@ Requirements
 
 3. Conda R_env:
 
-      cd phyloBOTL
-      conda env create -f conda_env/R_env.yaml -y
-      conda activate R_env
-      Rscript --vanilla support/Install_Rpackages.R <numberofcpus>
+         cd phyloBOTL
+         conda env create -f conda_env/R_env.yaml -y
+         conda activate R_env
+         Rscript --vanilla support/Install_Rpackages.R <numberofcpus>
 
 
-4. Snakemake:
+5. Snakemake:
 
-      conda create -n phylobotl_env -c bioconda snakemake=7.25.0 Python=3.11.4 -y
-      conda activate phylobotl_env
-      conda config --set channel_priority strict
+         conda create -n phylobotl_env -c bioconda snakemake=7.25.0 Python=3.11.4 -y
+         conda activate phylobotl_env
+         conda config --set channel_priority strict
 
- 5. Genomad and genomad_db - Follow instructions on https://portal.nersc.gov/genomad/index.html
+ 6. Genomad and genomad_db - Follow instructions on https://portal.nersc.gov/genomad/index.html
     
- 6. EGGNOG: emapper.py and EGGNOG database - Follow instructions on https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-v2112
+ 7. EGGNOG: emapper.py and EGGNOG database - Follow instructions on https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-v2112
 
 
 EGGNOG (emapper and database), genomad (genomad and database), R_env and snakemake can be installed using the script install_key_envs.sh: 
