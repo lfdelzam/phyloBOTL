@@ -21,7 +21,8 @@ Requirements
 
 
 Optional
-A. gtdbtk - source: https://ecogenomics.github.io/GTDBTk/installing/index.html#installing - conda: https://ecogenomics.github.io/GTDBTk/installing/bioconda.html
+A. gtdbtk - source: https://ecogenomics.github.io/GTDBTk/installing/index.html#installing 
+          - conda: https://ecogenomics.github.io/GTDBTk/installing/bioconda.html
 
     conda create -n gtdb_env -c conda-forge -c bioconda gtdbtk=2.1.1 -y
     conda activate gtdb_env
