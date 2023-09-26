@@ -5,14 +5,14 @@ suppressPackageStartupMessages(library(argparser))
 
 # arguments
 p <- arg_parser("phylocomgen")
-p <- add_argument(p, "-t", help="phylogenetic tree file", default="415_rooted_boot.treefile")
+p <- add_argument(p, "-t", help="phylogenetic tree file", default="Tree_rooted_boot.treefile")
 p <- add_argument(p, "-g", help="gene/orthologue count file", default="Orthogroups.GeneCount.tsv")
 p <- add_argument(p, "-i", help="genomes metadata", default="GENOME_LIST")
 p <- add_argument(p, "-e", help="Special group", default="Baltic Sea")
 p <- add_argument(p, "-s", help="Orthogroups list file", default="phyloglm_input/Orthogroups.tsv")
 p <- add_argument(p, "-m", help="list of protein annotation from prokka file", default="phyloglm_input/Annotations.txt")
 p <- add_argument(p, "-l", help="outfiles prefix", default="Vv")
-p <- add_argument(p, "-o", help="output directory", default="RAUK_TEST1")
+p <- add_argument(p, "-o", help="output directory", default="OUTPUT")
 p <- add_argument(p, "-r", help="FILTER: ratio of orthologue presence/absence in the genome dataset,
                   if higher than this value, the orthologues is not considered in the analysis", default=0.95)
 p <- add_argument(p, "-b", help="phyloglm Bootnumber", default=0)
@@ -29,7 +29,7 @@ p <- add_argument(p, "-l2", help="Group 2 label", default="E")
 
 argv <- parse_args(p)
 
-##extra parameter
+##extra parameter - on development
 core_fraction=0.97
 Pathogenicity_probability=T
 special_nodes = "" #c(418, 419, 630, 638, 773)
@@ -262,8 +262,8 @@ visualizing_ortholgues<-function(feature, mdf, parte) {
 
     for (t in names(subSELDF)) {
         if (t == "Isolate") {
-            subSELDF[[t]][subSELDF[[t]] > 0] = paste(argv$1,"isolate", sep=" ")
-            subSELDF[[t]][subSELDF[[t]] == 0] = paste(argv$2,"isolate", sep=" ")
+            subSELDF[[t]][subSELDF[[t]] > 0] = paste(argv$g1,"isolate", sep=" ")
+            subSELDF[[t]][subSELDF[[t]] == 0] = paste(argv$g2,"isolate", sep=" ")
         } else {
           subSELDF[[t]][subSELDF[[t]] > 0] = "Orthologue present"
           subSELDF[[t]][subSELDF[[t]] == 0] =  "Orthologue absent"
@@ -312,8 +312,8 @@ clinical_prediction<-function(feature, mdf, parte) {
 
     for (t in names(subSELDF)) {
       if (t == "Isolate") {
-        subSELDF[[t]][subSELDF[[t]] > 0] = paste(argv$1,"isolate", sep=" ")
-        subSELDF[[t]][subSELDF[[t]] == 0] =  paste(argv$2,"isolate", sep=" ")
+        subSELDF[[t]][subSELDF[[t]] > 0] = paste(argv$g1,"isolate", sep=" ")
+        subSELDF[[t]][subSELDF[[t]] == 0] =  paste(argv$g2,"isolate", sep=" ")
       } else {
         subSELDF[[t]][subSELDF[[t]] > 0] = "Orthologue present"
         subSELDF[[t]][subSELDF[[t]] == 0] =  "Orthologue absent"
@@ -434,8 +434,8 @@ for (n in tree$tip.label) {
 if(length(y[y>0]) != length(PATHOGENIC_STRAINS)) stop("Strain names and tree labels don't match, please check spelling in GENOME_LIST file")
 
 tipo<-y
-tipo[tipo==0]<-argv$2
-tipo[tipo==1]<-argv$1
+tipo[tipo==0]<-argv$g2
+tipo[tipo==1]<-argv$g1
 dfP <- data.frame(Isolates=as.character(tipo))
 rownames(dfP) <- tree$tip.label
 
@@ -576,10 +576,10 @@ dirA=paste(argv$o, "Annotations", sep="/")
 dir.create(dirA, showWarnings = FALSE)
 prefixA=paste(dirA,argv$l, sep="/")
 
-cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in" argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
+cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in", argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
     file=paste(prefixA,"Candidates_enriched_orthologues.tsv", sep="_"))
 
-cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in" argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
+cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in", argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
         file=paste(prefixA,"Candidates_depleted_orthologues.tsv", sep="_"))
 
 abs_markets=rep("0", length(names(res3)))
@@ -606,9 +606,9 @@ for (o in names(res3)) {
 abs_markets=abs_markets[abs_markets != "0" ]
 present_markets=present_markets[present_markets != "0" ]
 
-cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in" argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
+cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in", argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
     file=paste(prefixA,"core_enriched_orthologues.tsv", sep="_"))
-cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in" argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
+cat("Ortolog","Present in Clincial","Absent in Clincial",paste0("Present in", argv$g2),paste0("Absent in", argv$g2),"PadjValue","Coeffcient", "alpha\n", sep="\t",
     file=paste(prefixA,"core_depleted_orthologues.tsv", sep="_"))
 
 enriched_core=rep("0", length(present_markets))
@@ -643,7 +643,7 @@ depleted_core=depleted_core[depleted_core != "0" ]
 selected_features=c()
 selected_core_features=c()
 if (length(present_markets) > 0 ) {
-    cat("\n List of Enriched orthologs in", argv$1, "Isolates",present_markets, "\n")
+    cat("\n List of Enriched orthologs in", argv$g1, "Isolates",present_markets, "\n")
     selected_features=c(selected_features,present_markets)
 
     cat("#List of Enriched Orthologues\n",file=paste(prefix,"Enriched.txt", sep="_"))
@@ -652,7 +652,7 @@ if (length(present_markets) > 0 ) {
     } else { cat("No enriched Ortholog found") }
 
 if (length(enriched_core) > 0 ) {
-    cat("\n List of Enriched core orthologs in", argv$1, "Isolates",enriched_core, "\n")
+    cat("\n List of Enriched core orthologs in", argv$g1, "Isolates",enriched_core, "\n")
     selected_core_features=c(selected_core_features,enriched_core)
 
     cat("#List of Enriched core Orthologues\n",file=paste(prefix,"Enriched_core.txt", sep="_"))
@@ -661,7 +661,7 @@ if (length(enriched_core) > 0 ) {
     } else { cat("No enriched core Ortholog found") }
 
 if (length(abs_markets) > 0 ) {
-  cat("\n List of depleted orthologs in", argv$1,"Isolates",abs_markets,"\n")
+  cat("\n List of depleted orthologs in", argv$g1,"Isolates",abs_markets,"\n")
   selected_features=c(selected_features,abs_markets)
 
   cat("#List of depleted Orthologues\n",file=paste(prefix,"Depleted.txt", sep="_"))
@@ -673,7 +673,7 @@ if (length(abs_markets) > 0 ) {
   }
 
 if (length(depleted_core) > 0 ) {
-    cat("\n List of depleted core orthologs in", argv$1,"Isolates",depleted_core,"\n")
+    cat("\n List of depleted core orthologs in", argv$g1,"Isolates",depleted_core,"\n")
     selected_core_features=c(selected_core_features,depleted_core)
 
     cat("#List of Depleted core Orthologues\n",file=paste(prefix,"Depleted_core.txt", sep="_"))
@@ -711,8 +711,8 @@ if (Pathogenicity_probability) {
   SELDF=SELDF[order(SELDF$Isolate),]
 
   subSELDFPATHO=SELDF[row.names(SELDF) %in% tree$tip.label,]
-  subSELDFPATHO[["Isolate"]][subSELDFPATHO[["Isolate"]] > 0] = paste(argv$1,"isolate", sep=" ")
-  subSELDFPATHO[["Isolate"]][subSELDFPATHO[["Isolate"]] == 0] =  paste(argv$2,"isolate", sep=" ")
+  subSELDFPATHO[["Isolate"]][subSELDFPATHO[["Isolate"]] > 0] = paste(argv$g1,"isolate", sep=" ")
+  subSELDFPATHO[["Isolate"]][subSELDFPATHO[["Isolate"]] == 0] =  paste(argv$g2,"isolate", sep=" ")
   subSELDFPATHO$Pathogenticity_probability[subSELDFPATHO$Pathogenticity_probability <= 1] =0
   subSELDFPATHO$Pathogenticity_probability[subSELDFPATHO$Pathogenticity_probability > 1 & subSELDFPATHO$Pathogenticity_probability <= 5] =1
   subSELDFPATHO$Pathogenticity_probability[subSELDFPATHO$Pathogenticity_probability > 5 & subSELDFPATHO$Pathogenticity_probability <= 10] =2
