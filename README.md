@@ -28,8 +28,9 @@
 EGGNOG (emapper and database), genomad (genomad and database), R_env and snakemake can be installed using the script install_key_envs.sh: 
 
       cd phyloBOTL
-      bash install_key_envs.sh <conda_envs_path> <cpus>
+      bash install_key_envs.sh <directory_DB_path> <cpus>
 
+<directory_DB_path> a directory where you want to download the databases. 
 
 Optional
 
