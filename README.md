@@ -4,7 +4,7 @@ Requirements
    
 2. clone the repository:
 
-      git clone https://github.com/lfdelzam/phyloBOTL
+         git clone https://github.com/lfdelzam/phyloBOTL
 
 3. Conda R_env:
 
