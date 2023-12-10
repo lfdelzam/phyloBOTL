@@ -41,7 +41,7 @@ rule Genomes:
     shell:  """
                 cat {input} | while read line
                         do
-                            if [[ "$line" != \#* ]];; then
+                            if [[ "$line" != \#* ]]; then
                                 s=$(echo $line | cut -d ',' -f1)
                                 f=$(echo $line | cut -d ',' -f2)
                                 if [[ ! -s Genomes/$s.fa ]]; then
@@ -109,7 +109,7 @@ rule prokka:
 #  conda: "prokka_env"
   conda: "conda_envs/prokka.yaml"
   shell:  """
-            prokka --outdir {params.dout} --cpus {threads} --prefix {params.prx} {params.f} --force {params.p}#
+            prokka --outdir {params.dout} --cpus {threads} --prefix {params.prx} {params.f} --force {params.p}
           """
 
 rule Proteome_dir:
