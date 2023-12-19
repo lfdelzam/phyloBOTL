@@ -67,7 +67,7 @@ OG=Ortho_groups(args.l)
 if not os.path.exists(args.o):
     os.makedirs(args.o)
 
-print(OG.keys())
+#print(OG.keys())
 with open(os.path.join(args.o, "orthologues_gff.tsv" ), "a") as fout:
     print("Genome\tOrthologue\tContig\tType\tStart\tStop\tDirection\tDescription", file=fout)
     for f in files:
@@ -78,7 +78,7 @@ with open(os.path.join(args.o, "orthologues_gff.tsv" ), "a") as fout:
                     line=line.rstrip()
                     if not line.startswith("#"):
                         line=line.split("\t")
-    #PDNR01000754.1	Prodigal:002006	CDS	993	1613	.	+	0	ID=MPFGEDNF_00001;inference=ab initio prediction:Prodigal:002006;locus_tag=MPFGEDNF_00001;product=hypothetical protein
+                         #PDNR01000754.1	Prodigal:002006	CDS	993	1613	.	+	0	ID=MPFGEDNF_00001;inference=ab initio prediction:Prodigal:002006;locus_tag=MPFGEDNF_00001;product=hypothetical protein
                         contig=line[0]
                         type=line[2]
                         start=line[3]
@@ -96,4 +96,4 @@ with open(os.path.join(args.o, "orthologues_gff.tsv" ), "a") as fout:
 
                         print("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(Geno,O,contig,type,start,stop,direction,ID), file=fout)
         else:
-            print(Geno)
+            print(Geno)  # it seems can be removed 

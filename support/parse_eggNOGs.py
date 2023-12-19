@@ -42,25 +42,31 @@ def KEGG_Module_list(file):
     return KEGGM
 
 def update_annot2(dict, co, param):
-    if param != "-":
+    if param != "":
         tempo=set(param.split(","))
         if co in dict:
-            dict[co].update(tempo) #=update_annot(dict[co], param)
+            dict[co].update(tempo) 
         else:
             dict[co]=tempo
     return dict
 
 def update_paths(dict, co, param):
-    if param != "-":
+    if param != "":
         tempo=set([ m for m in param.split(",") if m.startswith("map")])
         if co in dict:
-            dict[co].update(tempo) #=update_annot(dict[co], param)
+            dict[co].update(tempo) 
         else:
             dict[co]=tempo
     return dict
 
 def get_annotations2(file):
-#query  seed_ortholog   evalue  score   eggNOG_OGs      max_annot_lvl   COG_category    Description     Preferred_name  GOs     EC      KEGG_ko KEGG_Pathway    KEGG_Module     KEGG_Reaction   KEGG_rclass     BRITE       KEGG_TC CAZy    BiGG_Reaction   PFAMs
+#query  seed_ortholog   evalue  score   eggNOG_OGs      max_annot_lvl   COG_category    Description     Preferred_name  GOs     EC      
+#KEGG_ko KEGG_Pathway    KEGG_Module     KEGG_Reaction   KEGG_rclass     BRITE       KEGG_TC CAZy    BiGG_Reaction   PFAMs
+
+###query_name seed_eggNOG_ortholog seed_ortholog_evalue seed_ortholog_score best_tax_level Preferred_name GOs EC KEGG_ko KEGG_Pathway KEGG_Module 
+###KEGG_Reaction KEGG_rclass BRITE KEGG_TC CAZy BiGG_Reaction taxonomic scope eggNOG OGs best eggNOG OG COG Functional cat. eggNOG free text desc.
+
+
   cog_d=list()
   Pathway={}
   Module={}
@@ -74,14 +80,15 @@ def get_annotations2(file):
   with open(file, "r") as fin:
     for line in fin:
       line=line.rstrip()
+      
       if not line.startswith("#"):
         line=line.split("\t")
-        cs=line[4].split(",")
+        cs=line[18].split(",")  #4
         cogs=set()
         noncogs=set()
         for ca in cs:
             c=ca.split("@")[0]
-            if c != "-":
+            if c != "":
                 if not c.startswith("COG"):
                     noncogs.update([c])
                 elif c.startswith("COG"):
@@ -93,16 +100,16 @@ def get_annotations2(file):
         tcogs=",".join(cogs)
         cog_d.extend([tcogs])
 
-        description=update_annot2(description,tcogs, line[7])
-        gene=update_annot2(gene,tcogs, line[8])
-        go=update_annot2(go,tcogs, line[9])
-        ec=update_annot2(ec,tcogs, line[10])
+        description=update_annot2(description,tcogs, line[len(line)-1]) #7
+        gene=update_annot2(gene,tcogs, line[5]) #8
+        go=update_annot2(go,tcogs, line[6]) #9
+        ec=update_annot2(ec,tcogs, line[7]) #10
 
-        Pathway=update_paths(Pathway,tcogs, line[12])
-        Module=update_annot2(Module,tcogs, line[13])
-        reaction=update_annot2(reaction,tcogs,line[14])
-        rc=update_annot2(rc,tcogs,line[15])
-        bt=update_annot2(bt,tcogs,line[16])
+        Pathway=update_paths(Pathway,tcogs, line[9]) #12
+        Module=update_annot2(Module,tcogs, line[10]) #13
+        reaction=update_annot2(reaction,tcogs,line[11]) #14
+        rc=update_annot2(rc,tcogs,line[12]) #15
+        bt=update_annot2(bt,tcogs,line[13]) #16
 
   return Pathway,Module,go,ec,gene,reaction,rc,description, cog_d, bt
 
@@ -136,7 +143,7 @@ if not os.path.exists(args.o):
     os.makedirs(args.o)
 
 with open(os.path.join(args.o,"Kegg_annotations.tsv"), "w") as fout:
-    print("#Ortholog\teggNOG_OGs\tCOG most Frequent (%)\tKEGG_Pathway\tKEGG_Module\tGOs\tEC\tGene\tKEGG_Reaction\tKEGG_rclass\tBRITE\tDescription", file=fout)
+    fout.write("#Ortholog\teggNOG_OGs\tCOG most Frequent (%)\tKEGG_Pathway\tKEGG_Module\tGOs\tEC\tGene\tKEGG_Reaction\tKEGG_rclass\tBRITE\tDescription\n") #, file=fout)
     for f in files:
 
         KEGG_Pathway,KEGG_Module, GO,EC,Gene,Reaction,RC,Description, COG_L, BT=get_annotations2(os.path.join(args.i,f))
@@ -173,7 +180,7 @@ with open(os.path.join(args.o,"Kegg_annotations.tsv"), "w") as fout:
             if max_COG in Description:
                 td=tex_to(Description[max_COG])
 
-            print("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(name, " | ".join(set(COG_L)),str(max_COG)+" ("+str(perct_COGmax)+")",tp, tm,tgo,tec,tg,tr,trc,tbt,td), file=fout)
+            fout.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(name, " | ".join(set(COG_L)),str(max_COG)+" ("+str(perct_COGmax)+")",tp, tm,tgo,tec,tg,tr,trc,tbt,td)) #, file=fout)
 
         else:
             print("INFO: Orthologue "+name+" has not EGGNOG hit")
@@ -181,38 +188,38 @@ with open(os.path.join(args.o,"Kegg_annotations.tsv"), "w") as fout:
 
 
 with open(os.path.join(args.o,"orthologues_sharing_Kegg_modules.tsv"), "w") as fout2:
-    print("#Module\tOrthologues\tDescription", file=fout2)
+    fout2.write("#Module\tOrthologues\tDescription\n") #, file=fout2)
     for m,o in o_modules.items():
         if len(o) >0:
             if m in KEGG_M:
-                print("{}\t{}\t{}".format(m,",".join(o), KEGG_M[m]), file=fout2)
+                fout2.write("{}\t{}\t{}\n".format(m,",".join(o), KEGG_M[m])) #, file=fout2)
             else:
-                print("{}\t{}\t{}".format(m,",".join(o), ""), file=fout2)
+                fout2.write("{}\t{}\t{}\n".format(m,",".join(o), "")) #, file=fout2)
 
 
 with open(os.path.join(args.o,"orthologues_sharing_Kegg_pathway.tsv"), "w") as fout3:
-    print("#Pathway\tOrthologues\tDescription", file=fout3)
+    fout3.write("#Pathway\tOrthologues\tDescription\n") #, file=fout3)
     for map,o in o_paths.items():
         if len(o) >0:
             if map in KEGG_P:
-                print("{}\t{}\t{}".format(map,",".join(set(o)),KEGG_P[map]) ,file=fout3)
+                fout3.write("{}\t{}\t{}\n".format(map,",".join(set(o)),KEGG_P[map]) ) #,file=fout3)
             else:
-                print("{}\t{}\t{}".format(map,",".join(set(o)),""),file=fout3)
+                fout3.write("{}\t{}\t{}\n".format(map,",".join(set(o)),"") ) #,file=fout3)
 
 with open(os.path.join(args.o,"orthologues_sharing_Kegg_reaction.tsv"), "w") as fout4:
-    print("#Reaction\tOrthologues", file=fout4)
+    fout4.write("#Reaction\tOrthologues\n") #, file=fout4)
     for rc,o in o_react.items():
         if len(o) >1:
-            print("{}\t{}".format(rc,",".join(set(o))), file=fout4)
+            fout4.write("{}\t{}\n".format(rc,",".join(set(o)))) #, file=fout4)
 
 with open(os.path.join(args.o,"orthologues_sharing_Kegg_rclass.tsv"), "w") as fout5:
-    print("#rClass\tOrthologues", file=fout5)
+    fout5.write("#rClass\tOrthologues\n") #, file=fout5)
     for rn,o in o_rc.items():
         if len(o) >1:
-            print("{}\t{}".format(rn,",".join(set(o))), file=fout5)
+            fout5.write("{}\t{}\n".format(rn,",".join(set(o))) ) #, file=fout5)
 
 with open(os.path.join(args.o,"orthologues_sharing_GOs.tsv"), "w") as fout6:
-    print("#GOs\tOrthologues", file=fout6)
+    fout6.write("#GOs\tOrthologues\n") #, file=fout6)
     for g,o in o_go.items():
         if len(o) >1:
-            print("{}\t{}".format(g,",".join(set(o))), file=fout6)
+            fout6.write("{}\t{}\n".format(g,",".join(set(o)))) #, file=fout6)

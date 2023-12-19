@@ -37,11 +37,11 @@ def get_contigs(filein, region):
             line=line.rstrip()
             line=line.split("\t")
             if region == "plasmid" and not line[0].startswith("seq_name"):
-                if float(line[5]) > args.c:
+                if float(line[5]) > float(args.c):
                     contigs.add(line[0])
                     size += int(line[1])
             if region == "virus" and not line[0].startswith("seq_name"):
-                if float(line[6]) > args.c:
+                if float(line[6]) > float(args.c):
                     contigs.add(line[0].split("|")[0])
                     size += int(line[1])
     return(contigs, size)
@@ -132,3 +132,4 @@ if not os.path.exists(args.o):
 
 print_out(contig_files, Orthologs, Enriched_Orthologs_list, "plasmid")
 print_out(contig_files_virus, Orthologs, Enriched_Orthologs_list,"virus")
+

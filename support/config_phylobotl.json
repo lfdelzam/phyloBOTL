@@ -7,9 +7,9 @@
           "group_1_name": "Clinical",
           "group_2_label": "E",
           "group_2_name": "Environmental",
-          "Special_group_name": "Baltic Sea"
+          "Special_group_name": "None"
         },
-"tree_file": "Tree_rooted_boot.treefile",
+"tree_file": "rooted_boot.treefile",
 "tree_using": "iqtree",
 "iqtree": {
           "iqtree_params":"-m GTR+I+G -B 1000 -bnni",
@@ -24,7 +24,7 @@
 "KSNP": {
         "kSNP4_param_phylo_method":"ML",
         "kSNP4_param_genome_fraction": "core",
-        "Path_to_kSNP4pkg": "/usr/local/kSNP4pkg"
+        "Path_to_kSNP4pkg": "/abs/path/to/kSNP4pkg"
         },
 "Prokka_params": "--rawproduct --quiet",
 "Proteome_dir": "proteome",
@@ -35,6 +35,9 @@
           "ortholog_table": "Orthogroups.tsv",
           "path_to_orthologs_sequences": "Orthologues/Results_dir/Orthogroup_Sequences"
           },
+"up_to_Eggnog_all_orthologs": False,
+"Eggnog_all_orthologs_selection": "longest",
+"path_to_eggnog_db":"/abs/path/to/eggnog_mapper_db",
 "PHYLOGLM": {
             "phyloglm_Bootnumber":0,
             "p_adj_value_cutoff":0.05,
@@ -47,11 +50,14 @@
                       "locus_size_window": 40000,
                       "max_n_genomes_per_fig": 22
                     },
-"path_to_eggnog_db":"CONDA_ENVS_PATH/eggnog_mapper_env/data",
-"genomad":{
-            "path_to_genomad_db": "CONDA_ENVS_PATH/genomad_env/data/genomad_db",
+"tax_specific_protein_annotation": {
+                      "status": True,
+                      "path_to_database": "/abs/path/to/Your_Specific_database.fasta"
+                      },
+"genomad":{ "include": False,
+            "path_to_genomad_db": "/abs/path/to/genomad_db/",
             "Genomad_score_cut_off": 0.8,
-            "params_genomad": "--cleanup --conservative --enable-score-calibration",
+            "params_genomad": "--cleanup --conservative",
           },
-"output_dir": "Results_with_IQTREE_rooted"
+"output_dir": "Results"
 }
