@@ -144,12 +144,13 @@ and save CTRL+x, y
 
 Run:
 
+
     Option 1: 
     
     Using a laptop or one node on a HPC.
     
-	conda activate phylobotl_env
-      	snakemake -s phylobotl.smk --use-conda --conda-frontend conda --cores <numberofcpus>
+		conda activate phylobotl_env
+      		snakemake -s phylobotl.smk --use-conda --conda-frontend conda --cores <numberofcpus>
 
     Option 2:
 
@@ -179,7 +180,7 @@ Run:
 	├── Genomes   -- Folder with all the genomes that will be used
 	│   ├── <isolate1>.fa -- expample of genome name file
 	
-	Annotations
+	├── Annotations
 	│   ├── GBK_files -- Prokka output gbk files for each genome
 	│   ├── GFF_files -- Prokka output gff files for each genome
 	│   ├── Orthologues/orthologues_gff.tsv -- gff file format of orthologs present in genomes 
@@ -210,40 +211,40 @@ Run:
 	
 	
 	In <output_dir>: -- Output result directory based on user-defined groups
-	├── Annotations
-	│   ├── Depleted_eggNOG 
-	│   ├── Depleted_GBK_files
-	│   ├── Depleted_KEGG
-	│   ├── Depleted_KEGG_core
-	│   ├── Depleted_Loci -- co-localization depleted orthologs EggNOG/KEGG annotation folder
-	│   ├── Enriched_eggNOG
-	│   ├── Enriched_GBK_files
-	│   ├── Enriched_KEGG
-	│   ├── Enriched_KEGG_core
-	│   ├── Loci -- co-localization Enriched orthologs EggNOG/KEGG annotation folder
-	│   ├── Specific_db
-	│   ├── Vv_Candidates_depleted_orthologues.tsv
-	│   ├── Vv_Candidates_enriched_orthologues.tsv
-	│   ├── Vv_core_depleted_orthologues.tsv
-	│   ├── Vv_core_enriched_orthologues.tsv
-	│   ├── Vv_depleted_core_orthologues_annotation.tsv
-	│   ├── Vv_Depleted_orthologues_annotation.tsv
-	│   ├── Vv_Enriched_core_orthologues_annotation.tsv
-	│   └── Vv_Enriched_orthologues_annotation.tsv
-	├── co_localization_figures -- Enriched orthologues
-	├── co_localization_figures_Depleted -- Depleted orthologues
-	├── Depleted_Orthologues_DNA_sequences
-	│   ├──<OrthologD1>.fna
-	├── Enriched_Orthologues_DNA_sequences
-	│   ├──<OrthologE1>.fna
-	├── Unsupervise -- Several unsupervised machine learning methods output directory based on enriched and depleted orthologues
-	├── Unsupervise_core -- Several unsupervised machine learning methods output directory based on core enriched and depleted orthologues
-	├── Visualization
-	│   ├── Vv_Tree_with_core_orthologues_fan_branch.length.pdf
-	│   ├── Vv_Tree_with_depleted_core_orthologues_fan_branch.length.pdf
-	│   ├── Vv_Tree_with_enriched_core_orthologues_fan_branch.length.pdf
-	│   └── Vv_Tree_with_Selected_orthologues_fan_branch.length.pdf
-	├── Vv_Depleted_core.txt -- List of core Depleted orthologues
-	├── Vv_Depleted.txt -- List of Depleted orthologues
-	├── Vv_Enriched_core.txt -- List of core Enriched orthologues
-	└── Vv_Enriched.txt -- List of Enriched orthologues
+		├── Annotations
+		│   ├── Depleted_eggNOG 
+		│   ├── Depleted_GBK_files
+		│   ├── Depleted_KEGG
+		│   ├── Depleted_KEGG_core
+		│   ├── Depleted_Loci -- co-localization depleted orthologs EggNOG/KEGG annotation folder
+		│   ├── Enriched_eggNOG
+		│   ├── Enriched_GBK_files
+		│   ├── Enriched_KEGG
+		│   ├── Enriched_KEGG_core
+		│   ├── Loci -- co-localization Enriched orthologs EggNOG/KEGG annotation folder
+		│   ├── Specific_db
+		│   ├── Vv_Candidates_depleted_orthologues.tsv
+		│   ├── Vv_Candidates_enriched_orthologues.tsv
+		│   ├── Vv_core_depleted_orthologues.tsv
+		│   ├── Vv_core_enriched_orthologues.tsv
+		│   ├── Vv_depleted_core_orthologues_annotation.tsv
+		│   ├── Vv_Depleted_orthologues_annotation.tsv
+		│   ├── Vv_Enriched_core_orthologues_annotation.tsv
+		│   └── Vv_Enriched_orthologues_annotation.tsv
+		├── co_localization_figures -- Enriched orthologues
+		├── co_localization_figures_Depleted -- Depleted orthologues
+		├── Depleted_Orthologues_DNA_sequences
+		│   ├──<OrthologD1>.fna
+		├── Enriched_Orthologues_DNA_sequences
+		│   ├──<OrthologE1>.fna
+		├── Unsupervise -- Several unsupervised machine learning methods output directory based on enriched and depleted orthologues
+		├── Unsupervise_core -- Several unsupervised machine learning methods output directory based on core enriched and depleted orthologues
+		├── Visualization
+		│   ├── Vv_Tree_with_core_orthologues_fan_branch.length.pdf
+		│   ├── Vv_Tree_with_depleted_core_orthologues_fan_branch.length.pdf
+		│   ├── Vv_Tree_with_enriched_core_orthologues_fan_branch.length.pdf
+		│   └── Vv_Tree_with_Selected_orthologues_fan_branch.length.pdf
+		├── Vv_Depleted_core.txt -- List of core Depleted orthologues
+		├── Vv_Depleted.txt -- List of Depleted orthologues
+		├── Vv_Enriched_core.txt -- List of core Enriched orthologues
+		└── Vv_Enriched.txt -- List of Enriched orthologues
